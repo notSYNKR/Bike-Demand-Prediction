@@ -14,7 +14,7 @@ html{
     height: 100vh;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.4);
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,11 +37,6 @@ html{
         height: 100%;
     }
 }
-.header img{
-    width: 90px;
-    height: 80px;
-    color: white;
-}
 .heading-container{
     text-align: center;
     gap: 5px;
@@ -55,6 +50,11 @@ html{
 .heading-container p{
     text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
     color: white;
+}
+.heading-container h2{
+    font-size: 40px;
+    color: white;
+    text-shadow: -1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
 }
 .heading-container button{
     background-color: #030031;
@@ -74,6 +74,9 @@ html{
 }
 
 /* CONTAINER */
+.usp{
+    margin-top: 50px;
+}
 .container{
     max-width: 1200px;
     display: block;
