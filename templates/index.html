@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Demand Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <section class="header">
+        <video autoplay loop muted plays-inline class="background-clip">
+            <source src="/static/videoplayback.mp4" type="video/mp4">
+        </video>
+        <div class="heading-container">
+            <h1>BikeDemand</h1>
+            <p>Your One Stop for Bike Demand Prediction.</p>
+            <button><a href="#prediction">Go To Prediction</a></button>
+        </div>
+        
+    </section>
+
+    <section class="usp">
+        <div class="container">
+            <div class="container-heading">
+                <h1>Why Choose BikeDemand?</h1>
+                <p>Learn What Makes BikeDemand The Optimal Choice</p>
+            </div>
+            <div class="container-content">
+                <div class="container-box">
+                    <h2>Simple Questions</h2>
+                    <p>Answer simple questions that help the model learn more about the aforementioned bike. Get the demand rating quickly. BikeDemand's user-friendly interface guides you through a series of straightforward questions to provide the model with essential information about the bike. This process is designed to be efficient and informative, ensuring that the model has the necessary data to accurately calculate demand.</p>
+                </div>
+                <div class="container-box">
+                    <h2>Instant Calculations</h2>
+                    <p>No more stalling for results. Get the demand rating quickly. Once you've provided the necessary information, BikeDemand's powerful algorithms swiftly process the data and generate a precise demand rating. This eliminates the need for lengthy wait times, allowing you to make informed decisions promptly.</p>
+                </div>
+                <div class="container-box">
+                    <h2>Trustworthy Digits</h2>
+                    <p>Trust BikeDemand to deliver correct figures instead of abstract numbers. BikeDemand's demand ratings are based on a comprehensive analysis of various factors, ensuring that the results are accurate and reliable. You can confidently rely on BikeDemand's data to make informed decisions about your bike's potential.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="prediction" id="prediction">
+        <div class="container">
+            <div class="container-heading">
+                <h1>Participate In The Survey</h1>
+                <p>Answer A Few Questions And Help Us Determine The Bike's Demand</p>
+            </div>
+            <form action="/predict" method="POST">
+                <div class="form">
+                    <div class="input">
+                        <label for="weathersit">Weather Situation:</label>
+                        <p>1: Clear, 2: Cloudy, 3: Light rain/snow, 4: Heavy rain/snow</p>
+                        <div class="slider">
+                            <p>1</p>
+                            <input type="range" name="weathersit" id="weathersit" min="1" max="4" step="1" value="1" required oninput="this.form.weathersitinput.value=this.value">
+                            <p>4</p>
+                        </div>
+                        <input type="number" name="weathersitinput" min="1" max="4" step="1" value="1" oninput="this.form.weathersit.value=this.value; this.form.weathersit.min = this.value; this.form.weathersit.max = this.value;">
+                    </div>
+                    <div class="input">
+                        <label for="temp">Temperature:</label>
+                        <p>Actual temperature</p>
+                        <div class="slider">
+                            <p>0.02</p>
+                            <input type="range" name="temp" id="temp" min="0.02" max="1.0" step="0.02" value="0.02" required oninput="this.form.tempinput.value=this.value">
+                            <p>1.0</p>
+                        </div>
+                        <input type="number" name="tempinput" min="0.02" max="1.0" step="0.02" value="0.02" oninput="this.form.temp.value=this.value; this.form.temp.min = this.value; this.form.temp.max = this.value;">
+                    </div>
+                    <div class="input">
+                        <label for="atemp">Absolute Temperature:</label>
+                        <p>"Feels like - " temperature</p>
+                        <div class="slider">
+                            <p>0.02</p>
+                            <input type="range" name="atemp" id="atemp" min="0.02" max="1.0" step="0.02" value="0.02" required oninput="this.form.atempinput.value=this.value">
+                            <p>1.0</p>
+                        </div>
+                        <input type="number" name="atempinput" min="0.02" max="1.0" step="0.02" value="0.02" oninput="this.form.atemp.value=this.value; this.form.atemp.min = this.value; this.form.atemp.max = this.value;">
+                    </div>
+                    <div class="input">
+                        <label for="hum">Humidity:</label>
+                        <p>Humidity range</p>
+                        <div class="slider">
+                            <p>0.0</p>
+                            <input type="range" name="hum" id="hum" min="0.0" max="1.0" step="0.01" value="0.0" required oninput="this.form.huminput.value=this.value">
+                            <p>1.0</p>
+                        </div>
+                        <input type="number" name="huminput" min="0.0" max="1.0" step="0.01" value="0.0" oninput="this.form.hum.value=this.value; this.form.hum.min = this.value; this.form.hum.max = this.value;">
+                    </div>
+                    <div class="input">
+                        <label for="windspeed">Windspeed:</label>
+                        <p>Windspeed value</p>
+                        <div class="slider">
+                            <p>0.0</p>
+                            <input type="range" name="windspeed" id="windspeed" min="0.0" max="0.86" step="0.01" value="0.0" required oninput="this.form.windspeedinput.value=this.value">
+                            <p>0.86</p>
+                        </div>
+                        <input type="number" name="windspeedinput" min="0.0" max="0.86" step="0.01" value="0.0" oninput="this.form.windspeed.value=this.value; this.form.windspeed.min = this.value; this.form.windspeed.max = this.value;">
+                    </div>
+                    <div class="input">
+                        <label for="season">Season:</label>
+                        <p>1: Spring, 2: Summer, 3: Fall, 4: Winter</p>
+                        <div class="slider">
+                            <p>1</p>
+                            <input type="range" name="season" id="season" min="1" max="4" step="1" value="1" required oninput="this.form.seasoninput.value=this.value">
+                            <p>4</p>
+                        </div>
+                        <input type="number" name="seasoninput" min="1" max="4" step="1" value="1" oninput="this.form.season.value=this.value; this.form.season.min = this.value; this.form.season.max = this.value;">
+                    </div>
+                    <div class="input">
+                        <label for="yr">Select Year:</label>
+                        <p>0: Old Model, 1: Newer Model</p>
+                        <div class="slider">
+                            <p>0</p>
+                            <input type="range" name="yr" id="yr" min="0" max="1" step="1" value="0" required oninput="this.form.yrinput.value=this.value">
+                            <p>1</p>
+                        </div>
+                        <input type="number" name="yrinput" min="0" max="1" step="1" value="0" oninput="this.form.yr.value=this.value; this.form.yr.min = this.value; this.form.yr.max = this.value;">
+                    </div>
+                    <div class="input">
+                        <label for="mnth">Select Month:</label>
+                        <p>Select the month of the year</p>
+                        <div class="slider">
+                            <p>1</p>
+                            <input type="range" name="mnth" id="mnth" min="1" max="12" step="1" value="1" required oninput="this.form.mnthinput.value=this.value">
+                            <p>12</p>
+                        </div>
+                        <input type="number" name="mnthinput" min="1" max="12" step="1" value="1" oninput="this.form.mnth.value=this.value; this.form.mnth.min = this.value; this.form.mnth.max = this.value;">
+                    </div>
+                    <div class="input">
+                        <label for="weekday">Select Day:</label>
+                        <p>0: Sunday - 6: Saturday</p>
+                        <div class="slider">
+                            <p>0</p>
+                            <input type="range" name="weekday" id="weekday" min="0" max="6" step="1" value="0" required oninput="this.form.weekdayinput.value=this.value">
+                            <p>6</p>
+                        </div>
+                        <input type="number" name="weekdayinput" min="0" max="6" step="1" value="0" oninput="this.form.weekday.value=this.value; this.form.weekday.min = this.value; this.form.weekday.max = this.value;">
+                    </div>
+                    <div class="input">
+                        <label for="hr">Select Hour:</label>
+                        <p>Select the hour of the day</p>
+                        <div class="slider">
+                            <p>1</p>
+                            <input type="range" name="hr" id="hr" min="1" max="24" step="1" value="1" required oninput="this.form.hrinput.value=this.value">
+                            <p>24</p>
+                        </div>
+                        <input type="number" name="hrinput" min="1" max="24" step="1" value="1" oninput="this.form.hr.value=this.value; this.form.hr.min = this.value; this.form.hr.max = this.value;">
+                    </div>
+                    <div class="input">
+                        <label for="holiday">Holiday:</label>
+                        <p>0: No, 1: Yes</p>
+                        <div class="slider">
+                            <p>0</p>
+                            <input type="range" name="holiday" id="holiday" min="0" max="1" step="1" value="0" required oninput="this.form.holidayinput.value=this.value">
+                            <p>1</p>
+                        </div>
+                        <input type="number" name="holidayinput" min="0" max="1" step="1" value="0" oninput="this.form.holiday.value=this.value; this.form.holiday.min = this.value; this.form.holiday.max = this.value;">
+                    </div>
+                    <div class="input">
+                        <label for="workingday">Working Day:</label>
+                        <p>Select whether it's a working day</p>
+                        <div class="slider">
+                            <p>0</p>
+                            <input type="range" name="workingday" id="workingday" min="0" max="1" step="1" value="0" required oninput="this.form.workinginput.value=this.value">
+                            <p>1</p>
+                        </div>
+                        <input type="number" name="workinginput" min="0" max="1" step="1" value="0" oninput="this.form.workingday.value=this.value; this.form.workingday.min = this.value; this.form.workingday.max = this.value;">
+                    </div>
+                </div>
+                <div class="submit">
+                    <input type="submit" value="Predict">
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+
+    <script>
+        function updateTextInput(val) {
+            document.getElementById('textInput').value=val; 
+        }
+    </script>
+</body>
+</html>
